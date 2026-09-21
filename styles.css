@@ -52,7 +52,8 @@ button, input, textarea, select { font: inherit; }
 .nav-shell {
   width: calc(100% - 36px);
   min-height: 62px;
-  margin: 0 auto;
+  margin-left: 40px;
+  margin-right: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;

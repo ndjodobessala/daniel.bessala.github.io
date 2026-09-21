@@ -110,8 +110,8 @@ button, input, textarea, select { font: inherit; }
 
 .profile-layout {
   display: grid;
-  grid-template-columns: 265px 1fr;
-  gap: 46px;
+  grid-template-columns: 380px 1fr;
+  gap: 3rem;
   align-items: start;
 }
 .profile-panel { position: sticky; top: 95px; }

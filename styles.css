@@ -118,7 +118,8 @@ button, input, textarea, select { font: inherit; }
   position: sticky;
   top: 95px;
 
-  width: 480px;
+  width: 100%;
+  max-width: 480px;
   min-height: 520px;
   padding: 28px;
 }
@@ -345,29 +346,238 @@ button, input, textarea, select { font: inherit; }
   .theme-toggle { margin-top: 0; }
 }
 
-.long-text {
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  line-clamp: 5;
-  -webkit-box-orient: vertical;
+
+/* =========================================================
+   ENSEIGNEMENT — VERSION NETTOYÉE
+========================================================= */
+
+/*
+  La section Enseignement contient :
+  - un grand bloc "Unités d’enseignement" sur toute la largeur ;
+  - deux blocs secondaires : Encadrement et Ressources pédagogiques.
+*/
+#teaching .simple-columns {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+}
+
+#teaching .teaching-block {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+/* Évite que les styles génériques de .simple-columns
+   écrasent la présentation interne du bloc principal. */
+#teaching .teaching-block > h3 {
+  margin-bottom: 12px;
+}
+
+#teaching .teaching-intro {
+  max-width: 1050px;
+  margin: 0;
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.8;
+}
+
+
+/* ---------------------------------------------------------
+   Bloc dépliable
+--------------------------------------------------------- */
+
+.courses-extra {
+  max-height: 0;
   overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  margin-top: 0;
+
+  transition:
+    max-height .75s ease,
+    opacity .35s ease,
+    margin-top .35s ease,
+    visibility 0s linear .75s;
 }
 
-.long-text.expanded {
-  display: block;
+.courses-extra.is-open {
+  max-height: 12000px;
+  opacity: 1;
+  visibility: visible;
+  margin-top: 2rem;
+
+  transition:
+    max-height 1s ease,
+    opacity .4s ease,
+    margin-top .35s ease,
+    visibility 0s;
 }
 
-.see-more {
-  margin-top: 8px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 600;
+
+/* ---------------------------------------------------------
+   Établissements
+--------------------------------------------------------- */
+
+.teaching-institution {
+  margin-bottom: 3rem;
+}
+
+.teaching-institution:last-child {
+  margin-bottom: 0;
+}
+
+.teaching-institution h4 {
+  margin: 0 0 .35rem;
+  font-family: Lora, Georgia, serif;
+  font-size: 1.22rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.teaching-meta {
+  margin: 0 0 2rem !important;
+  color: var(--accent) !important;
+  font-size: .8rem !important;
+  font-weight: 700;
+  letter-spacing: .015em;
+}
+
+
+/* ---------------------------------------------------------
+   Unité d’enseignement
+--------------------------------------------------------- */
+
+.course-item {
+  margin-bottom: 2rem;
+  padding: 0 0 2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.course-item:last-child {
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+
+.course-item h5 {
+  margin: 0 0 .9rem;
+  font-family: Lora, Georgia, serif;
+  font-size: 1.08rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+#teaching .course-item p {
+  margin: 0 0 .9rem;
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.75;
+}
+
+#teaching .course-item .course-label {
+  margin-top: 1.2rem;
+  margin-bottom: .55rem;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.course-item ul {
+  margin: .7rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--muted);
+}
+
+.course-item li {
+  margin-bottom: .45rem;
+  padding-left: .15rem;
+  font-size: .88rem;
+  line-height: 1.65;
+}
+
+.course-item li::marker {
   color: var(--accent);
 }
 
+
+/* ---------------------------------------------------------
+   Bouton Voir plus / Voir moins
+--------------------------------------------------------- */
+
+.see-more {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+
+  margin-top: 1.15rem;
+  padding: .55rem .8rem;
+
+  border: 1px solid var(--line);
+  border-radius: 4px;
+
+  background: var(--surface);
+  color: var(--accent);
+
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    border-color .2s ease,
+    background .2s ease,
+    color .2s ease,
+    transform .2s ease;
+}
+
 .see-more:hover {
-  text-decoration: underline;
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.see-more:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.see-more-icon {
+  display: inline-block;
+  line-height: 1;
+  transition: transform .3s ease;
+}
+
+.see-more[aria-expanded="true"] .see-more-icon {
+  transform: rotate(180deg);
+}
+
+
+/* ---------------------------------------------------------
+   Responsive Enseignement
+--------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  #teaching .simple-columns {
+    grid-template-columns: 1fr;
+  }
+
+  #teaching .teaching-block {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 650px) {
+  #teaching .teaching-intro,
+  #teaching .course-item p,
+  .course-item li {
+    font-size: .9rem;
+  }
+
+  .teaching-institution h4 {
+    font-size: 1.12rem;
+  }
+
+  .see-more {
+    width: 100%;
+    justify-content: center;
+  }
 }

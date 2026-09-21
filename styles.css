@@ -10,7 +10,7 @@
   --accent-soft: #f8edf2;
   --nav-bg: rgba(251,251,249,.93);
   --shadow: 0 14px 38px rgba(20, 20, 20, .09);
-  --max: 1000px;
+  --max: 1380px;
 }
 
 html[data-theme="dark"] {

@@ -107,3 +107,14 @@ function onScroll() {
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 document.getElementById('year').textContent = new Date().getFullYear();
+
+const coursesText = document.getElementById("coursesText");
+const coursesTextBtn = document.getElementById("coursesTextBtn");
+
+coursesTextBtn.addEventListener("click", () => {
+  const expanded = coursesText.classList.toggle("expanded");
+
+  coursesTextBtn.textContent = expanded
+    ? "Voir moins"
+    : "Voir plus";
+});

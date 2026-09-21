@@ -10,7 +10,7 @@
   --accent-soft: #f8edf2;
   --nav-bg: rgba(251,251,249,.93);
   --shadow: 0 14px 38px rgba(20, 20, 20, .09);
-  --max: 970px;
+  --max: 1380px;
 }
 
 html[data-theme="dark"] {
@@ -50,10 +50,9 @@ button, input, textarea, select { font: inherit; }
   border-bottom: 1px solid var(--line);
 }
 .nav-shell {
-  width: calc(100% - 36px);
+  width: min(calc(100% - 36px), 1080px);
   min-height: 62px;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;

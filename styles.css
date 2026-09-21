@@ -114,7 +114,14 @@ button, input, textarea, select { font: inherit; }
   gap: 3rem;
   align-items: start;
 }
-.profile-panel { position: sticky; top: 95px; }
+.profile-panel {
+  position: sticky;
+  top: 95px;
+
+  width: 360px;
+  min-height: 520px;
+  padding: 28px;
+}
 .portrait-wrap { margin: 0 0 18px; }
 .portrait {
   width: 100%;

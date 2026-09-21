@@ -50,7 +50,7 @@ button, input, textarea, select { font: inherit; }
   border-bottom: 1px solid var(--line);
 }
 .nav-shell {
-  width: min(calc(100% - 36px), 1380px);
+  width: calc(100% - 36px);
   min-height: 62px;
   margin: 0 auto;
   display: flex;

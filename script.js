@@ -45,107 +45,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const translations = {
 
     /*
-    =========================================================
-    FRANÇAIS
-    =========================================================
-
     fr: {
-
       'nav.about': 'À propos',
       'nav.publications': 'Publications',
       'nav.research': 'Recherche',
       'nav.teaching': 'Enseignement',
       'nav.service': 'Service',
-      'nav.contact': 'Contact',
-
-      'hero.interests':
-        'Inégalités numériques <span>·</span> Participation politique <span>·</span> Communication scientifique',
-
-      'profile.photoAlt':
-        "Daniel Ndjodo Bessala en situation d'enseignement",
-
-      'profile.role':
-        'Enseignant-chercheur · Assistant',
-
-      'profile.affiliation':
-        'ESSTIC · Université de Yaoundé II',
-
-      'profile.location':
-        'Yaoundé, Cameroun',
-
-      'teaching.title':
-        'Enseignement',
-
-      'teaching.coursesTitle':
-        'Unités d’enseignement',
-
-      'teaching.supervisionTitle':
-        'Encadrement',
-
-      'teaching.resourcesTitle':
-        'Ressources pédagogiques',
-
-      'career.title':
-        'Parcours académique & service',
-
-      'contact.title':
-        'Contact',
-
-      'backTop':
-        'Retour en haut'
+      'nav.contact': 'Contact'
     },
 
-
-    =========================================================
-    ENGLISH
-    =========================================================
-
     en: {
-
       'nav.about': 'About',
       'nav.publications': 'Publications',
       'nav.research': 'Research',
       'nav.teaching': 'Teaching',
       'nav.service': 'Service',
-      'nav.contact': 'Contact',
-
-      'hero.interests':
-        'Digital inequalities <span>·</span> Political participation <span>·</span> Science communication',
-
-      'profile.photoAlt':
-        'Daniel Ndjodo Bessala teaching',
-
-      'profile.role':
-        'Assistant Lecturer & Researcher',
-
-      'profile.affiliation':
-        'ESSTIC · University of Yaoundé II',
-
-      'profile.location':
-        'Yaoundé, Cameroon',
-
-      'teaching.title':
-        'Teaching',
-
-      'teaching.coursesTitle':
-        'Courses',
-
-      'teaching.supervisionTitle':
-        'Supervision',
-
-      'teaching.resourcesTitle':
-        'Teaching resources',
-
-      'career.title':
-        'Academic background & service',
-
-      'contact.title':
-        'Contact',
-
-      'backTop':
-        'Back to top'
+      'nav.contact': 'Contact'
     }
-
     */
 
   };
@@ -169,23 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ? 'en'
         : 'fr';
 
-
-    if (lang === 'en') {
-
-      coursesLabel.textContent =
-        isOpen
-          ? 'Show less'
-          : 'Show more';
-
-    } else {
-
-      coursesLabel.textContent =
-        isOpen
-          ? 'Voir moins'
-          : 'Voir plus';
-
-    }
-
+    coursesLabel.textContent =
+      lang === 'en'
+        ? (isOpen ? 'Show less' : 'Show more')
+        : (isOpen ? 'Voir moins' : 'Voir plus');
   }
 
 
@@ -195,72 +98,39 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-
-    /*
-      Ajoute ou retire la classe CSS .is-open
-    */
-
     coursesExtra.classList.toggle(
       'is-open',
       open
     );
-
-
-    /*
-      Accessibilité du bouton
-    */
 
     coursesButton.setAttribute(
       'aria-expanded',
       String(open)
     );
 
-
-    /*
-      Accessibilité du contenu
-    */
-
     coursesExtra.setAttribute(
       'aria-hidden',
       String(!open)
     );
 
-
-    /*
-      Met à jour Voir plus / Voir moins
-    */
-
     updateCoursesButtonLabel();
-
   }
 
-
-  /*
-    Initialisation du bouton
-  */
 
   if (coursesButton && coursesExtra) {
 
     setCoursesState(false);
-
 
     coursesButton.addEventListener(
       'click',
       () => {
 
         const currentlyOpen =
-          coursesButton.getAttribute(
-            'aria-expanded'
-          ) === 'true';
+          coursesButton.getAttribute('aria-expanded') === 'true';
 
-
-        setCoursesState(
-          !currentlyOpen
-        );
-
+        setCoursesState(!currentlyOpen);
       }
     );
-
   }
 
 
@@ -270,20 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setLanguage(lang) {
 
-    /*
-      On sécurise la valeur.
-      Toute valeur autre que "en" devient "fr".
-    */
-
     const selectedLang =
       lang === 'en'
         ? 'en'
         : 'fr';
 
-
     const dict =
       translations[selectedLang] || {};
-
 
     document.documentElement.lang =
       selectedLang;
@@ -292,9 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
       selectedLang;
 
 
-    /* -----------------------------------------------------
-       TITRE DE LA PAGE
-    ----------------------------------------------------- */
+    /* Titre de la page */
 
     document.title =
       selectedLang === 'fr'
@@ -302,36 +163,23 @@ document.addEventListener('DOMContentLoaded', () => {
         : 'Daniel Ndjodo Bessala — Assistant Lecturer & Researcher';
 
 
-    /* -----------------------------------------------------
-       META DESCRIPTION
-    ----------------------------------------------------- */
+    /* Meta description */
 
     const metaDescription =
-      document.querySelector(
-        'meta[name="description"]'
-      );
-
+      document.querySelector('meta[name="description"]');
 
     if (metaDescription) {
 
       metaDescription.setAttribute(
-
         'content',
-
         selectedLang === 'fr'
-
           ? "Site académique bilingue de Daniel Ndjodo Bessala, enseignant-chercheur à l'ESSTIC, Université de Yaoundé II."
-
           : "Bilingual academic website of Daniel Ndjodo Bessala, Assistant Lecturer and Researcher at ESSTIC, University of Yaoundé II."
-
       );
-
     }
 
 
-    /* -----------------------------------------------------
-       TEXTES data-i18n
-    ----------------------------------------------------- */
+    /* Textes */
 
     document
       .querySelectorAll('[data-i18n]')
@@ -343,28 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const value =
           dict[key];
 
-
-        /*
-          On ne remplace le contenu que si une traduction
-          existe réellement.
-
-          Cela évite d'effacer tes textes actuels lorsque
-          l'objet translations est encore vide.
-        */
-
         if (value !== undefined) {
-
-          element.innerHTML =
-            value;
-
+          element.innerHTML = value;
         }
-
       });
 
 
-    /* -----------------------------------------------------
-       ALT DES IMAGES
-    ----------------------------------------------------- */
+    /* ALT */
 
     document
       .querySelectorAll('[data-i18n-alt]')
@@ -376,22 +209,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const value =
           dict[key];
 
-
         if (value !== undefined) {
-
           element.setAttribute(
             'alt',
             value
           );
-
         }
-
       });
 
 
-    /* -----------------------------------------------------
-       ATTRIBUTS ARIA
-    ----------------------------------------------------- */
+    /* ARIA */
 
     document
       .querySelectorAll('[data-i18n-aria]')
@@ -403,22 +230,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const value =
           dict[key];
 
-
         if (value !== undefined) {
-
           element.setAttribute(
             'aria-label',
             value
           );
-
         }
-
       });
 
 
-    /* -----------------------------------------------------
-       INDICATEUR FR / EN
-    ----------------------------------------------------- */
+    /* FR / EN */
 
     document
       .querySelector('.lang-fr')
@@ -426,7 +247,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'active',
         selectedLang === 'fr'
       );
-
 
     document
       .querySelector('.lang-en')
@@ -436,98 +256,54 @@ document.addEventListener('DOMContentLoaded', () => {
       );
 
 
-    /* -----------------------------------------------------
-       BOUTON DE LANGUE
-    ----------------------------------------------------- */
-
     langToggle?.setAttribute(
-
       'aria-label',
-
       selectedLang === 'fr'
         ? 'Switch to English'
         : 'Passer en français'
-
     );
 
-
     langToggle?.setAttribute(
-
       'title',
-
       selectedLang === 'fr'
         ? 'English'
         : 'Français'
-
     );
 
 
-    /* -----------------------------------------------------
-       MENU MOBILE
-    ----------------------------------------------------- */
-
     menuToggle?.setAttribute(
-
       'aria-label',
-
       selectedLang === 'fr'
         ? 'Ouvrir le menu'
         : 'Open menu'
-
     );
 
 
-    /* -----------------------------------------------------
-       THÈME
-    ----------------------------------------------------- */
-
     themeToggle?.setAttribute(
-
       'aria-label',
-
       selectedLang === 'fr'
         ? 'Changer de thème'
         : 'Change theme'
-
     );
-
 
     themeToggle?.setAttribute(
-
       'title',
-
       selectedLang === 'fr'
         ? 'Changer de thème'
         : 'Change theme'
-
     );
 
-
-    /* -----------------------------------------------------
-       RETOUR EN HAUT
-    ----------------------------------------------------- */
 
     backToTop?.setAttribute(
-
       'aria-label',
-
       selectedLang === 'fr'
         ? 'Retour en haut'
         : 'Back to top'
-
     );
 
 
-    /* -----------------------------------------------------
-       VOIR PLUS / VOIR MOINS
-    ----------------------------------------------------- */
-
     updateCoursesButtonLabel();
 
-
-    /* -----------------------------------------------------
-       SAUVEGARDE
-    ----------------------------------------------------- */
 
     try {
 
@@ -538,13 +314,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (error) {
 
-      /*
-        Si localStorage n'est pas disponible,
-        le site continue de fonctionner.
-      */
+      /* Non bloquant */
 
     }
-
   }
 
 
@@ -560,26 +332,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-
       const open =
-        navLinks.classList.toggle(
-          'open'
-        );
-
+        navLinks.classList.toggle('open');
 
       menuToggle.setAttribute(
         'aria-expanded',
         String(open)
       );
-
     }
   );
 
-
-  /*
-    Fermer le menu lorsqu'on clique
-    sur un lien de navigation.
-  */
 
   navAnchors.forEach((link) => {
 
@@ -587,19 +349,14 @@ document.addEventListener('DOMContentLoaded', () => {
       'click',
       () => {
 
-        navLinks?.classList.remove(
-          'open'
-        );
-
+        navLinks?.classList.remove('open');
 
         menuToggle?.setAttribute(
           'aria-expanded',
           'false'
         );
-
       }
     );
-
   });
 
 
@@ -609,13 +366,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let savedTheme = null;
 
-
   try {
 
     savedTheme =
-      localStorage.getItem(
-        'daniel-theme'
-      );
+      localStorage.getItem('daniel-theme');
 
   } catch (error) {
 
@@ -624,10 +378,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /*
-    Applique le thème sauvegardé.
-  */
-
   if (
     savedTheme === 'dark' ||
     savedTheme === 'light'
@@ -635,13 +385,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.documentElement.dataset.theme =
       savedTheme;
-
   }
 
-
-  /*
-    Changement de thème.
-  */
 
   themeToggle?.addEventListener(
     'click',
@@ -650,16 +395,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentTheme =
         document.documentElement.dataset.theme;
 
-
       const nextTheme =
         currentTheme === 'dark'
           ? 'light'
           : 'dark';
 
-
       document.documentElement.dataset.theme =
         nextTheme;
-
 
       try {
 
@@ -670,12 +412,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       } catch (error) {
 
-        /*
-          Non bloquant.
-        */
+        /* Non bloquant */
 
       }
-
     }
   );
 
@@ -686,13 +425,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let savedLang = null;
 
-
   try {
 
     savedLang =
-      localStorage.getItem(
-        'daniel-lang'
-      );
+      localStorage.getItem('daniel-lang');
 
   } catch (error) {
 
@@ -701,70 +437,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /*
-    Détection de la langue du navigateur.
-  */
-
   const browserLang =
     navigator.language
       ?.toLowerCase()
       .startsWith('fr')
+        ? 'fr'
+        : 'en';
 
-      ? 'fr'
-      : 'en';
-
-
-  /*
-    Priorité :
-    1. langue sauvegardée
-    2. langue du navigateur
-  */
 
   const initialLang =
-
     savedLang === 'fr' ||
     savedLang === 'en'
-
       ? savedLang
       : browserLang;
 
 
-  /*
-    IMPORTANT :
+  setLanguage(initialLang);
 
-    setLanguage est appelé ici,
-    APRÈS la déclaration de coursesButton,
-    coursesExtra et coursesLabel.
-
-    Cela supprime le conflit présent
-    dans ton ancienne version.
-  */
-
-  setLanguage(
-    initialLang
-  );
-
-
-  /*
-    Changement FR / EN
-  */
 
   langToggle?.addEventListener(
     'click',
     () => {
 
       const newLang =
-
         document.documentElement.lang === 'fr'
-
           ? 'en'
           : 'fr';
 
-
-      setLanguage(
-        newLang
-      );
-
+      setLanguage(newLang);
     }
   );
 
@@ -777,167 +477,91 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function onScroll() {
 
-    /* -----------------------------------------------------
-       BARRE DE PROGRESSION
-    ----------------------------------------------------- */
-
     const scrollable =
-
       document.documentElement.scrollHeight -
       window.innerHeight;
 
-
     const ratio =
-
       scrollable > 0
-
         ? Math.min(
             100,
-
             Math.max(
               0,
-
-              (
-                window.scrollY /
-                scrollable
-              ) * 100
-
+              (window.scrollY / scrollable) * 100
             )
           )
-
         : 0;
 
-
     if (progress) {
-
       progress.style.width =
         `${ratio}%`;
-
     }
 
 
-    /* -----------------------------------------------------
-       RETOUR EN HAUT
-    ----------------------------------------------------- */
-
     backToTop?.classList.toggle(
-
       'visible',
-
       window.scrollY > 450
-
     );
 
 
-    /* -----------------------------------------------------
-       SECTION ACTIVE
-    ----------------------------------------------------- */
-
     const sections = [
-
-      ...document.querySelectorAll(
-        '.section-anchor'
-      )
-
+      ...document.querySelectorAll('.section-anchor')
     ];
 
-
-    let current =
-      'about';
-
+    let current = 'about';
 
     sections.forEach(
       (section) => {
 
         if (
-
           window.scrollY >=
           section.offsetTop - 130
-
         ) {
 
           current =
             section.id;
-
         }
-
       }
     );
 
-
-    /*
-      Active le bon lien dans la navigation.
-    */
 
     navAnchors.forEach(
       (link) => {
 
         const href =
-          link.getAttribute(
-            'href'
-          );
-
+          link.getAttribute('href');
 
         if (
           !href ||
           !href.startsWith('#')
         ) {
-
           return;
-
         }
-
 
         const target =
           href.slice(1);
 
-
-        /*
-          La section "news" est rattachée
-          au lien Publications.
-        */
-
         const active =
-
           target === current ||
-
           (
             target === 'publications' &&
             current === 'news'
           );
 
-
         link.classList.toggle(
           'active',
           active
         );
-
       }
     );
-
   }
 
 
-  /*
-    Écoute du scroll.
-  */
-
   window.addEventListener(
-
     'scroll',
-
     onScroll,
-
-    {
-      passive: true
-    }
-
+    { passive: true }
   );
-
-
-  /*
-    Exécution initiale.
-  */
 
   onScroll();
 
@@ -950,7 +574,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     yearElement.textContent =
       new Date().getFullYear();
-
   }
 
 
@@ -964,37 +587,270 @@ document.addEventListener('DOMContentLoaded', () => {
 
       event.preventDefault();
 
-
       window.scrollTo({
-
         top: 0,
-
         behavior: 'smooth'
-
       });
-
-
-      /*
-        Évite de laisser #top
-        dans l'adresse du navigateur.
-      */
 
       if (history.replaceState) {
 
         history.replaceState(
-
           null,
-
           '',
-
           window.location.pathname +
           window.location.search
-
         );
-
       }
-
     }
   );
+
+
+  /* =======================================================
+     GALERIE PHOTOS
+     DÉFILEMENT AUTOMATIQUE TOUTES LES 20 SECONDES
+  ======================================================= */
+
+  const photoSlides = [
+    ...document.querySelectorAll('.photo-slide')
+  ];
+
+  const photoPrev =
+    document.querySelector('.photo-prev');
+
+  const photoNext =
+    document.querySelector('.photo-next');
+
+  const photoDotsContainer =
+    document.querySelector('.photo-dots');
+
+
+  let currentPhoto = 0;
+  let photoTimer = null;
+
+
+  /* -------------------------------------------------------
+     Afficher une photo
+  ------------------------------------------------------- */
+
+  function showPhoto(index) {
+
+    if (!photoSlides.length) {
+      return;
+    }
+
+    if (index >= photoSlides.length) {
+      index = 0;
+    }
+
+    if (index < 0) {
+      index = photoSlides.length - 1;
+    }
+
+    currentPhoto = index;
+
+
+    photoSlides.forEach(
+      (slide, slideIndex) => {
+
+        slide.classList.toggle(
+          'active',
+          slideIndex === currentPhoto
+        );
+      }
+    );
+
+
+    const dots = [
+      ...document.querySelectorAll('.photo-dot')
+    ];
+
+    dots.forEach(
+      (dot, dotIndex) => {
+
+        dot.classList.toggle(
+          'active',
+          dotIndex === currentPhoto
+        );
+
+        dot.setAttribute(
+          'aria-current',
+          dotIndex === currentPhoto
+            ? 'true'
+            : 'false'
+        );
+      }
+    );
+  }
+
+
+  /* -------------------------------------------------------
+     Photo suivante
+  ------------------------------------------------------- */
+
+  function nextPhoto() {
+
+    showPhoto(
+      currentPhoto + 1
+    );
+  }
+
+
+  /* -------------------------------------------------------
+     Photo précédente
+  ------------------------------------------------------- */
+
+  function previousPhoto() {
+
+    showPhoto(
+      currentPhoto - 1
+    );
+  }
+
+
+  /* -------------------------------------------------------
+     Démarrer le défilement automatique
+  ------------------------------------------------------- */
+
+  function startPhotoTimer() {
+
+    if (photoSlides.length <= 1) {
+      return;
+    }
+
+    clearInterval(photoTimer);
+
+    photoTimer =
+      setInterval(
+        nextPhoto,
+        20000
+      );
+  }
+
+
+  /* -------------------------------------------------------
+     Redémarrer le compteur
+  ------------------------------------------------------- */
+
+  function restartPhotoTimer() {
+
+    clearInterval(photoTimer);
+
+    startPhotoTimer();
+  }
+
+
+  /* -------------------------------------------------------
+     Création automatique des points de navigation
+  ------------------------------------------------------- */
+
+  if (
+    photoSlides.length > 0 &&
+    photoDotsContainer
+  ) {
+
+    photoDotsContainer.innerHTML = '';
+
+    photoSlides.forEach(
+      (_, index) => {
+
+        const dot =
+          document.createElement('button');
+
+        dot.type = 'button';
+
+        dot.className =
+          index === 0
+            ? 'photo-dot active'
+            : 'photo-dot';
+
+        dot.setAttribute(
+          'aria-label',
+          `Afficher la photo ${index + 1}`
+        );
+
+        dot.setAttribute(
+          'aria-current',
+          index === 0
+            ? 'true'
+            : 'false'
+        );
+
+        dot.addEventListener(
+          'click',
+          () => {
+
+            showPhoto(index);
+
+            restartPhotoTimer();
+          }
+        );
+
+        photoDotsContainer.appendChild(dot);
+      }
+    );
+  }
+
+
+  /* -------------------------------------------------------
+     Bouton suivant
+  ------------------------------------------------------- */
+
+  photoNext?.addEventListener(
+    'click',
+    () => {
+
+      nextPhoto();
+
+      restartPhotoTimer();
+    }
+  );
+
+
+  /* -------------------------------------------------------
+     Bouton précédent
+  ------------------------------------------------------- */
+
+  photoPrev?.addEventListener(
+    'click',
+    () => {
+
+      previousPhoto();
+
+      restartPhotoTimer();
+    }
+  );
+
+
+  /* -------------------------------------------------------
+     Pause quand l'onglet n'est pas visible
+  ------------------------------------------------------- */
+
+  document.addEventListener(
+    'visibilitychange',
+    () => {
+
+      if (document.hidden) {
+
+        clearInterval(photoTimer);
+
+      } else {
+
+        restartPhotoTimer();
+
+      }
+    }
+  );
+
+
+  /* -------------------------------------------------------
+     Initialisation de la galerie
+  ------------------------------------------------------- */
+
+  if (photoSlides.length > 0) {
+
+    showPhoto(0);
+
+    startPhotoTimer();
+  }
 
 });

@@ -659,20 +659,6 @@ select {
 }
 
 
-.section-note {
-
-  color: var(--muted);
-
-  max-width: 780px;
-
-  margin:
-    -8px
-    0
-    28px;
-
-}
-
-
 
 /* =========================================================
    DERNIÈRES NOUVELLES
@@ -877,11 +863,6 @@ select {
 }
 
 
-.muted-placeholder {
-  opacity: .72;
-}
-
-
 
 /* =========================================================
    AXES DE RECHERCHE
@@ -981,67 +962,6 @@ select {
 
 
 /* =========================================================
-   BLOCS SIMPLES
-========================================================= */
-
-.simple-columns {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(
-      3,
-      1fr
-    );
-
-  gap: 30px;
-
-}
-
-
-.simple-columns article {
-
-  border-left:
-    2px
-    solid
-    var(--accent-soft);
-
-  padding-left: 18px;
-
-}
-
-
-.simple-columns h3,
-.subheading {
-
-  font-family:
-    Lora,
-    Georgia,
-    serif;
-
-  font-size: 1.08rem;
-
-  margin:
-    0
-    0
-    8px;
-
-}
-
-
-.simple-columns p {
-
-  color: var(--muted);
-
-  margin: 0;
-
-  font-size: .88rem;
-
-}
-
-
-
-/* =========================================================
    EXPÉRIENCE & FORMATION
 ========================================================= */
 
@@ -1060,9 +980,19 @@ select {
 
 .subheading {
 
+  font-family:
+    Lora,
+    Georgia,
+    serif;
+
+  font-size: 1.08rem;
+
   color: var(--accent);
 
-  margin-bottom: 15px;
+  margin:
+    0
+    0
+    15px;
 
 }
 
@@ -1171,6 +1101,8 @@ select {
 
   justify-content: flex-end;
 
+  align-items: center;
+
   gap: 9px;
 
   flex-wrap: wrap;
@@ -1179,6 +1111,14 @@ select {
 
 
 .contact-btn {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: .5rem;
 
   text-decoration: none;
 
@@ -1199,6 +1139,12 @@ select {
 
   background: var(--surface);
 
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    background .2s ease,
+    color .2s ease;
+
 }
 
 
@@ -1217,6 +1163,68 @@ select {
 
   transform:
     translateY(-1px);
+
+}
+
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+.whatsapp-btn {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: .5rem;
+
+  background: #25d366;
+
+  border-color: #25d366;
+
+  color: #ffffff;
+
+}
+
+
+.whatsapp-icon {
+
+  width: 18px;
+
+  height: 18px;
+
+  display: block;
+
+  flex: 0 0 18px;
+
+  color: #ffffff;
+
+}
+
+
+.whatsapp-btn:hover {
+
+  background: #1ebe5d;
+
+  border-color: #1ebe5d;
+
+  color: #ffffff;
+
+}
+
+
+.whatsapp-btn:focus-visible {
+
+  outline:
+    2px
+    solid
+    #25d366;
+
+  outline-offset: 3px;
 
 }
 
@@ -1416,11 +1424,6 @@ select {
 }
 
 
-
-/* ---------------------------------------------------------
-   Slides
---------------------------------------------------------- */
-
 .photo-slide {
 
   position: absolute;
@@ -1447,11 +1450,6 @@ select {
 }
 
 
-
-/* ---------------------------------------------------------
-   Images
---------------------------------------------------------- */
-
 .photo-slide img {
 
   width: 100%;
@@ -1468,11 +1466,6 @@ select {
 
 }
 
-
-
-/* ---------------------------------------------------------
-   Légendes
---------------------------------------------------------- */
 
 .photo-caption {
 
@@ -1505,11 +1498,6 @@ select {
 }
 
 
-
-/* ---------------------------------------------------------
-   Flèches
---------------------------------------------------------- */
-
 .photo-prev,
 .photo-next {
 
@@ -1539,10 +1527,6 @@ select {
 
   cursor: pointer;
 
-  transition:
-    background .2s ease,
-    transform .2s ease;
-
 }
 
 
@@ -1564,11 +1548,6 @@ select {
 
 }
 
-
-
-/* ---------------------------------------------------------
-   Points de navigation
---------------------------------------------------------- */
 
 .photo-dots {
 
@@ -1636,11 +1615,6 @@ select {
 
 }
 
-
-
-/* ---------------------------------------------------------
-   Bloc principal
---------------------------------------------------------- */
 
 .academic-block {
 
@@ -1751,7 +1725,7 @@ select {
 
 
 /* =========================================================
-   CONTENU INTERNE DES ACTIVITÉS ACADÉMIQUES
+   CONTENU INTERNE
 ========================================================= */
 
 .academic-detail {
@@ -1782,11 +1756,6 @@ select {
 }
 
 
-
-/* ---------------------------------------------------------
-   Titres internes
---------------------------------------------------------- */
-
 #academic .academic-detail h4 {
 
   margin:
@@ -1815,12 +1784,6 @@ select {
 }
 
 
-
-/* ---------------------------------------------------------
-   Paragraphes internes
-   Encadrements, projets et collaborations
---------------------------------------------------------- */
-
 #academic .academic-detail p {
 
   margin:
@@ -1843,11 +1806,6 @@ select {
 
 }
 
-
-
-/* ---------------------------------------------------------
-   Mots importants dans les paragraphes
---------------------------------------------------------- */
 
 #academic .academic-detail p strong {
 
@@ -1920,11 +1878,6 @@ select {
 
 }
 
-
-
-/* ---------------------------------------------------------
-   Unités d'enseignement
---------------------------------------------------------- */
 
 .course-item {
 
@@ -2002,11 +1955,6 @@ select {
 }
 
 
-
-/* ---------------------------------------------------------
-   Listes des objectifs pédagogiques
---------------------------------------------------------- */
-
 .course-item ul {
 
   margin:
@@ -2041,7 +1989,7 @@ select {
 
 
 /* =========================================================
-   BOUTONS VOIR PLUS / VOIR MOINS
+   VOIR PLUS / VOIR MOINS
 ========================================================= */
 
 .see-more {
@@ -2092,8 +2040,6 @@ select {
 
   background: var(--accent-soft);
 
-  text-decoration: none;
-
   transform:
     translateY(-1px);
 
@@ -2124,8 +2070,7 @@ select {
 }
 
 
-.see-more[aria-expanded="true"]
-.see-more-icon {
+.see-more[aria-expanded="true"] .see-more-icon {
 
   transform:
     rotate(180deg);
@@ -2195,11 +2140,6 @@ select {
   }
 
 
-  .theme-toggle {
-    margin-top: 5px;
-  }
-
-
   .profile-layout {
 
     grid-template-columns:
@@ -2211,24 +2151,25 @@ select {
   }
 
 
-  .research-grid,
-  .simple-columns {
+  .research-grid {
 
     grid-template-columns: 1fr;
 
   }
 
 
-  .research-card {
+  .academic-grid {
 
-    min-height: auto;
+    grid-template-columns: 1fr;
+
+    gap: 28px;
 
   }
 
 
-  .research-card h3 {
+  .academic-block.is-expanded {
 
-    margin-top: 18px;
+    grid-column: auto;
 
   }
 
@@ -2245,29 +2186,6 @@ select {
       var(--line);
 
     justify-content: flex-start;
-
-  }
-
-
-  .theme-toggle {
-    margin-top: 0;
-  }
-
-
-  /* Activités académiques */
-
-  .academic-grid {
-
-    grid-template-columns: 1fr;
-
-    gap: 28px;
-
-  }
-
-
-  .academic-block.is-expanded {
-
-    grid-column: auto;
 
   }
 
@@ -2328,11 +2246,6 @@ select {
   }
 
 
-  .profile-meta {
-    max-width: 320px;
-  }
-
-
   .news-item {
 
     grid-template-columns:
@@ -2374,26 +2287,18 @@ select {
 
 
   .contact-actions {
+
     justify-content: flex-start;
+
   }
 
 
   .footer-inner {
+
     flex-direction: column;
-  }
-
-
-  .research-line span {
-
-    margin:
-      0
-      3px;
 
   }
 
-
-
-  /* Galerie */
 
   .photo-slider {
 
@@ -2426,9 +2331,6 @@ select {
   }
 
 
-
-  /* Activités académiques */
-
   .academic-block > h3 {
 
     font-size: 1.15rem;
@@ -2449,8 +2351,6 @@ select {
   #academic .academic-detail h4 {
 
     font-size: 1.03rem;
-
-    line-height: 1.45;
 
   }
 
@@ -2476,7 +2376,7 @@ select {
 
 
 /* =========================================================
-   ACCESSIBILITÉ — RÉDUCTION DES ANIMATIONS
+   ACCESSIBILITÉ
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {

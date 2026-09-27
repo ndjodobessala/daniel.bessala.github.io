@@ -86,10 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =======================================================
-     GESTION DES BOUTONS
+     VOIR PLUS / VOIR MOINS
   ======================================================= */
 
   function updateAcademicButtonLabel(button) {
+
 
     const label =
       button?.querySelector('.see-more-label');
@@ -111,9 +112,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     label.textContent =
+
       lang === 'en'
-        ? (isOpen ? 'Show less' : 'Show more')
-        : (isOpen ? 'Voir moins' : 'Voir plus');
+
+        ? (
+            isOpen
+              ? 'Show less'
+              : 'Show more'
+          )
+
+        : (
+            isOpen
+              ? 'Voir moins'
+              : 'Voir plus'
+          );
+
 
   }
 
@@ -121,16 +134,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateAcademicButtonLabels() {
 
+
     academicButtons.forEach(
-      (button) =>
-        updateAcademicButtonLabel(button)
+      (button) => {
+
+        updateAcademicButtonLabel(
+          button
+        );
+
+      }
     );
+
 
   }
 
 
 
-  function setAcademicState(button, open) {
+  function setAcademicState(
+    button,
+    open
+  ) {
+
 
     if (!button) {
       return;
@@ -142,7 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const content =
-      document.getElementById(targetId);
+      document.getElementById(
+        targetId
+      );
 
 
     if (!content) {
@@ -176,7 +202,10 @@ document.addEventListener('DOMContentLoaded', () => {
       );
 
 
-    updateAcademicButtonLabel(button);
+    updateAcademicButtonLabel(
+      button
+    );
+
 
   }
 
@@ -184,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   academicButtons.forEach(
     (button) => {
+
 
       setAcademicState(
         button,
@@ -194,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
       button.addEventListener(
         'click',
         () => {
+
 
           const isOpen =
             button.getAttribute(
@@ -206,8 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
             !isOpen
           );
 
+
         }
       );
+
 
     }
   );
@@ -219,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ======================================================= */
 
   function setLanguage(lang) {
+
 
     const selectedLang =
       lang === 'en'
@@ -239,16 +273,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    /* Titre de la page */
+    /* -----------------------------------------------------
+       TITRE
+    ----------------------------------------------------- */
 
     document.title =
+
       selectedLang === 'fr'
+
         ? 'Daniel Ndjodo Bessala — Enseignant-chercheur'
+
         : 'Daniel Ndjodo Bessala — Assistant Lecturer & Researcher';
 
 
 
-    /* Meta description */
+    /* -----------------------------------------------------
+       META DESCRIPTION
+    ----------------------------------------------------- */
 
     const metaDescription =
       document.querySelector(
@@ -257,6 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     if (metaDescription) {
+
 
       metaDescription.setAttribute(
 
@@ -270,90 +312,117 @@ document.addEventListener('DOMContentLoaded', () => {
 
       );
 
+
     }
 
 
 
-    /* Textes */
+    /* -----------------------------------------------------
+       TEXTES
+    ----------------------------------------------------- */
 
     document
       .querySelectorAll('[data-i18n]')
-      .forEach((element) => {
-
-        const key =
-          element.dataset.i18n;
+      .forEach(
+        (element) => {
 
 
-        const value =
-          dict[key];
+          const key =
+            element.dataset.i18n;
 
 
-        if (value !== undefined) {
+          const value =
+            dict[key];
 
-          element.innerHTML =
-            value;
+
+          if (
+            value !== undefined
+          ) {
+
+            element.innerHTML =
+              value;
+
+          }
+
 
         }
-
-      });
-
+      );
 
 
-    /* ALT */
+
+    /* -----------------------------------------------------
+       ALT
+    ----------------------------------------------------- */
 
     document
       .querySelectorAll('[data-i18n-alt]')
-      .forEach((element) => {
-
-        const key =
-          element.dataset.i18nAlt;
+      .forEach(
+        (element) => {
 
 
-        const value =
-          dict[key];
+          const key =
+            element.dataset.i18nAlt;
 
 
-        if (value !== undefined) {
+          const value =
+            dict[key];
 
-          element.setAttribute(
-            'alt',
-            value
-          );
+
+          if (
+            value !== undefined
+          ) {
+
+            element.setAttribute(
+              'alt',
+              value
+            );
+
+          }
+
 
         }
-
-      });
-
+      );
 
 
-    /* ARIA */
+
+    /* -----------------------------------------------------
+       ARIA
+    ----------------------------------------------------- */
 
     document
       .querySelectorAll('[data-i18n-aria]')
-      .forEach((element) => {
-
-        const key =
-          element.dataset.i18nAria;
+      .forEach(
+        (element) => {
 
 
-        const value =
-          dict[key];
+          const key =
+            element.dataset.i18nAria;
 
 
-        if (value !== undefined) {
+          const value =
+            dict[key];
 
-          element.setAttribute(
-            'aria-label',
-            value
-          );
+
+          if (
+            value !== undefined
+          ) {
+
+            element.setAttribute(
+              'aria-label',
+              value
+            );
+
+          }
+
 
         }
-
-      });
-
+      );
 
 
-    /* FR / EN */
+
+    /* -----------------------------------------------------
+       INDICATEUR FR / EN
+    ----------------------------------------------------- */
 
     document
       .querySelector('.lang-fr')
@@ -371,6 +440,10 @@ document.addEventListener('DOMContentLoaded', () => {
       );
 
 
+
+    /* -----------------------------------------------------
+       LANGUE
+    ----------------------------------------------------- */
 
     langToggle?.setAttribute(
 
@@ -395,6 +468,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    /* -----------------------------------------------------
+       MENU MOBILE
+    ----------------------------------------------------- */
+
     menuToggle?.setAttribute(
 
       'aria-label',
@@ -406,6 +483,10 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
 
+
+    /* -----------------------------------------------------
+       THÈME
+    ----------------------------------------------------- */
 
     themeToggle?.setAttribute(
 
@@ -430,6 +511,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    /* -----------------------------------------------------
+       RETOUR EN HAUT
+    ----------------------------------------------------- */
+
     backToTop?.setAttribute(
 
       'aria-label',
@@ -448,16 +533,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
 
+
       localStorage.setItem(
         'daniel-lang',
         selectedLang
       );
 
+
     } catch (error) {
+
 
       /* Non bloquant */
 
+
     }
+
 
   }
 
@@ -470,6 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
   menuToggle?.addEventListener(
     'click',
     () => {
+
 
       if (!navLinks) {
         return;
@@ -487,31 +578,38 @@ document.addEventListener('DOMContentLoaded', () => {
         String(open)
       );
 
+
     }
   );
 
 
 
-  navAnchors.forEach((link) => {
-
-    link.addEventListener(
-      'click',
-      () => {
-
-        navLinks?.classList.remove(
-          'open'
-        );
+  navAnchors.forEach(
+    (link) => {
 
 
-        menuToggle?.setAttribute(
-          'aria-expanded',
-          'false'
-        );
+      link.addEventListener(
+        'click',
+        () => {
 
-      }
-    );
 
-  });
+          navLinks?.classList.remove(
+            'open'
+          );
+
+
+          menuToggle?.setAttribute(
+            'aria-expanded',
+            'false'
+          );
+
+
+        }
+      );
+
+
+    }
+  );
 
 
 
@@ -524,14 +622,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   try {
 
+
     savedTheme =
       localStorage.getItem(
         'daniel-theme'
       );
 
+
   } catch (error) {
 
+
     savedTheme = null;
+
 
   }
 
@@ -542,8 +644,10 @@ document.addEventListener('DOMContentLoaded', () => {
     savedTheme === 'light'
   ) {
 
+
     document.documentElement.dataset.theme =
       savedTheme;
+
 
   }
 
@@ -553,13 +657,17 @@ document.addEventListener('DOMContentLoaded', () => {
     'click',
     () => {
 
+
       const currentTheme =
         document.documentElement.dataset.theme;
 
 
       const nextTheme =
+
         currentTheme === 'dark'
+
           ? 'light'
+
           : 'dark';
 
 
@@ -569,16 +677,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
 
+
         localStorage.setItem(
           'daniel-theme',
           nextTheme
         );
 
+
       } catch (error) {
+
 
         /* Non bloquant */
 
+
       }
+
 
     }
   );
@@ -586,7 +699,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =======================================================
-     INITIALISATION DE LA LANGUE
+     INITIALISATION LANGUE
   ======================================================= */
 
   let savedLang = null;
@@ -594,14 +707,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   try {
 
+
     savedLang =
       localStorage.getItem(
         'daniel-lang'
       );
 
+
   } catch (error) {
 
+
     savedLang = null;
+
 
   }
 
@@ -614,6 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .startsWith('fr')
 
         ? 'fr'
+
         : 'en';
 
 
@@ -624,11 +742,14 @@ document.addEventListener('DOMContentLoaded', () => {
     savedLang === 'en'
 
       ? savedLang
+
       : browserLang;
 
 
 
-  setLanguage(initialLang);
+  setLanguage(
+    initialLang
+  );
 
 
 
@@ -636,13 +757,20 @@ document.addEventListener('DOMContentLoaded', () => {
     'click',
     () => {
 
+
       const newLang =
+
         document.documentElement.lang === 'fr'
+
           ? 'en'
+
           : 'fr';
 
 
-      setLanguage(newLang);
+      setLanguage(
+        newLang
+      );
+
 
     }
   );
@@ -650,14 +778,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =======================================================
-     BARRE DE PROGRESSION
-     +
+     SCROLL
+     PROGRESSION
      NAVIGATION ACTIVE
   ======================================================= */
 
   function onScroll() {
 
+
     const scrollable =
+
       document.documentElement.scrollHeight -
       window.innerHeight;
 
@@ -670,7 +800,10 @@ document.addEventListener('DOMContentLoaded', () => {
             100,
             Math.max(
               0,
-              (window.scrollY / scrollable) * 100
+              (
+                window.scrollY /
+                scrollable
+              ) * 100
             )
           )
 
@@ -680,8 +813,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (progress) {
 
+
       progress.style.width =
         `${ratio}%`;
+
 
     }
 
@@ -712,15 +847,19 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(
       (section) => {
 
+
         if (
           window.scrollY >=
           section.offsetTop - 130
         ) {
 
+
           current =
             section.id;
 
+
         }
+
 
       }
     );
@@ -729,6 +868,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navAnchors.forEach(
       (link) => {
+
 
         const href =
           link.getAttribute(
@@ -740,7 +880,9 @@ document.addEventListener('DOMContentLoaded', () => {
           !href ||
           !href.startsWith('#')
         ) {
+
           return;
+
         }
 
 
@@ -763,8 +905,10 @@ document.addEventListener('DOMContentLoaded', () => {
           active
         );
 
+
       }
     );
+
 
   }
 
@@ -773,7 +917,9 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener(
     'scroll',
     onScroll,
-    { passive: true }
+    {
+      passive: true
+    }
   );
 
 
@@ -787,8 +933,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (yearElement) {
 
+
     yearElement.textContent =
       new Date().getFullYear();
+
 
   }
 
@@ -802,25 +950,18 @@ document.addEventListener('DOMContentLoaded', () => {
     'click',
     (event) => {
 
+
       event.preventDefault();
 
 
       window.scrollTo({
+
         top: 0,
+
         behavior: 'smooth'
+
       });
 
-
-      if (history.replaceState) {
-
-        history.replaceState(
-          null,
-          '',
-          window.location.pathname +
-          window.location.search
-        );
-
-      }
 
     }
   );
@@ -829,7 +970,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* =======================================================
      GALERIE PHOTOS
-     DÉFILEMENT AUTOMATIQUE TOUTES LES 20 SECONDES
+     20 SECONDES
   ======================================================= */
 
   const photoSlides = [
@@ -867,23 +1008,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* -------------------------------------------------------
-     Afficher une photo
+     AFFICHER UNE PHOTO
   ------------------------------------------------------- */
 
   function showPhoto(index) {
+
 
     if (!photoSlides.length) {
       return;
     }
 
 
-    if (index >= photoSlides.length) {
+    if (
+      index >=
+      photoSlides.length
+    ) {
+
       index = 0;
+
     }
 
 
     if (index < 0) {
-      index = photoSlides.length - 1;
+
+      index =
+        photoSlides.length - 1;
+
     }
 
 
@@ -895,10 +1045,12 @@ document.addEventListener('DOMContentLoaded', () => {
     photoSlides.forEach(
       (slide, slideIndex) => {
 
+
         slide.classList.toggle(
           'active',
           slideIndex === currentPhoto
         );
+
 
       }
     );
@@ -916,6 +1068,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dots.forEach(
       (dot, dotIndex) => {
 
+
         dot.classList.toggle(
           'active',
           dotIndex === currentPhoto
@@ -932,49 +1085,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
         );
 
+
       }
     );
+
 
   }
 
 
 
-  /* -------------------------------------------------------
-     Photo suivante
-  ------------------------------------------------------- */
-
   function nextPhoto() {
+
 
     showPhoto(
       currentPhoto + 1
     );
 
+
   }
 
 
 
-  /* -------------------------------------------------------
-     Photo précédente
-  ------------------------------------------------------- */
-
   function previousPhoto() {
+
 
     showPhoto(
       currentPhoto - 1
     );
 
+
   }
 
 
 
-  /* -------------------------------------------------------
-     Démarrer le défilement automatique
-  ------------------------------------------------------- */
-
   function startPhotoTimer() {
 
-    if (photoSlides.length <= 1) {
+
+    if (
+      photoSlides.length <= 1
+    ) {
+
       return;
+
     }
 
 
@@ -989,15 +1141,13 @@ document.addEventListener('DOMContentLoaded', () => {
         20000
       );
 
+
   }
 
 
 
-  /* -------------------------------------------------------
-     Redémarrer le compteur
-  ------------------------------------------------------- */
-
   function restartPhotoTimer() {
+
 
     clearInterval(
       photoTimer
@@ -1006,12 +1156,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startPhotoTimer();
 
+
   }
 
 
 
   /* -------------------------------------------------------
-     Création automatique des points
+     POINTS
   ------------------------------------------------------- */
 
   if (
@@ -1019,12 +1170,14 @@ document.addEventListener('DOMContentLoaded', () => {
     photoDotsContainer
   ) {
 
+
     photoDotsContainer.innerHTML =
       '';
 
 
     photoSlides.forEach(
       (_, index) => {
+
 
         const dot =
           document.createElement(
@@ -1037,8 +1190,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         dot.className =
+
           index === 0
+
             ? 'photo-dot active'
+
             : 'photo-dot';
 
 
@@ -1063,12 +1219,14 @@ document.addEventListener('DOMContentLoaded', () => {
           'click',
           () => {
 
+
             showPhoto(
               index
             );
 
 
             restartPhotoTimer();
+
 
           }
         );
@@ -1078,41 +1236,44 @@ document.addEventListener('DOMContentLoaded', () => {
           dot
         );
 
+
       }
     );
+
 
   }
 
 
 
   /* -------------------------------------------------------
-     Bouton suivant
+     FLÈCHES
   ------------------------------------------------------- */
 
   photoNext?.addEventListener(
     'click',
     () => {
 
+
       nextPhoto();
 
+
       restartPhotoTimer();
+
 
     }
   );
 
-
-
-  /* -------------------------------------------------------
-     Bouton précédent
-  ------------------------------------------------------- */
 
   photoPrev?.addEventListener(
     'click',
     () => {
 
+
       previousPhoto();
 
+
       restartPhotoTimer();
+
 
     }
   );
@@ -1120,24 +1281,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* -------------------------------------------------------
-     Pause quand l'onglet n'est pas visible
+     PAUSE ONGLET MASQUÉ
   ------------------------------------------------------- */
 
   document.addEventListener(
     'visibilitychange',
     () => {
 
+
       if (document.hidden) {
+
 
         clearInterval(
           photoTimer
         );
 
+
       } else {
+
 
         restartPhotoTimer();
 
+
       }
+
 
     }
   );
@@ -1145,14 +1312,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* -------------------------------------------------------
-     Initialisation de la galerie
+     INITIALISATION
   ------------------------------------------------------- */
 
-  if (photoSlides.length > 0) {
+  if (
+    photoSlides.length > 0
+  ) {
+
 
     showPhoto(0);
 
+
     startPhotoTimer();
+
 
   }
 

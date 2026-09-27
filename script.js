@@ -5,37 +5,49 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+
   /* =======================================================
      ÉLÉMENTS PRINCIPAUX
   ======================================================= */
 
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  const themeToggle = document.querySelector('.theme-toggle');
-  const langToggle = document.querySelector('.lang-toggle');
-  const progress = document.querySelector('.scroll-progress span');
-  const backToTop = document.querySelector('.back-to-top');
+  const menuToggle =
+    document.querySelector('.menu-toggle');
+
+  const navLinks =
+    document.querySelector('.nav-links');
+
+  const themeToggle =
+    document.querySelector('.theme-toggle');
+
+  const langToggle =
+    document.querySelector('.lang-toggle');
+
+  const progress =
+    document.querySelector('.scroll-progress span');
+
+  const backToTop =
+    document.querySelector('.back-to-top');
+
 
   const navAnchors = [
     ...document.querySelectorAll('.nav-links > a')
   ];
 
-  const yearElement = document.getElementById('year');
+
+  const yearElement =
+    document.getElementById('year');
+
 
 
   /* =======================================================
-     ENSEIGNEMENT
-     ÉLÉMENTS VOIR PLUS / VOIR MOINS
+     ACTIVITÉS ACADÉMIQUES
+     VOIR PLUS / VOIR MOINS
   ======================================================= */
 
-  const coursesButton =
-    document.getElementById('coursesTextBtn');
+  const academicButtons = [
+    ...document.querySelectorAll('.academic-toggle')
+  ];
 
-  const coursesExtra =
-    document.getElementById('coursesExtra');
-
-  const coursesLabel =
-    coursesButton?.querySelector('.see-more-label');
 
 
   /* =======================================================
@@ -46,92 +58,160 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /*
     fr: {
+
       'nav.about': 'À propos',
       'nav.publications': 'Publications',
       'nav.research': 'Recherche',
-      'nav.teaching': 'Enseignement',
+      'nav.academic': 'Activités académiques',
       'nav.service': 'Service',
       'nav.contact': 'Contact'
+
     },
 
+
     en: {
+
       'nav.about': 'About',
       'nav.publications': 'Publications',
       'nav.research': 'Research',
-      'nav.teaching': 'Teaching',
+      'nav.academic': 'Academic activities',
       'nav.service': 'Service',
       'nav.contact': 'Contact'
+
     }
     */
 
   };
 
 
+
   /* =======================================================
-     VOIR PLUS / VOIR MOINS
+     GESTION DES BOUTONS
   ======================================================= */
 
-  function updateCoursesButtonLabel() {
+  function updateAcademicButtonLabel(button) {
 
-    if (!coursesButton || !coursesLabel) {
+    const label =
+      button?.querySelector('.see-more-label');
+
+
+    if (!button || !label) {
       return;
     }
 
+
     const isOpen =
-      coursesButton.getAttribute('aria-expanded') === 'true';
+      button.getAttribute('aria-expanded') === 'true';
+
 
     const lang =
       document.documentElement.lang === 'en'
         ? 'en'
         : 'fr';
 
-    coursesLabel.textContent =
+
+    label.textContent =
       lang === 'en'
         ? (isOpen ? 'Show less' : 'Show more')
         : (isOpen ? 'Voir moins' : 'Voir plus');
+
   }
 
 
-  function setCoursesState(open) {
 
-    if (!coursesButton || !coursesExtra) {
+  function updateAcademicButtonLabels() {
+
+    academicButtons.forEach(
+      (button) =>
+        updateAcademicButtonLabel(button)
+    );
+
+  }
+
+
+
+  function setAcademicState(button, open) {
+
+    if (!button) {
       return;
     }
 
-    coursesExtra.classList.toggle(
+
+    const targetId =
+      button.dataset.target;
+
+
+    const content =
+      document.getElementById(targetId);
+
+
+    if (!content) {
+      return;
+    }
+
+
+    content.classList.toggle(
       'is-open',
       open
     );
 
-    coursesButton.setAttribute(
-      'aria-expanded',
-      String(open)
-    );
 
-    coursesExtra.setAttribute(
+    content.setAttribute(
       'aria-hidden',
       String(!open)
     );
 
-    updateCoursesButtonLabel();
-  }
 
-
-  if (coursesButton && coursesExtra) {
-
-    setCoursesState(false);
-
-    coursesButton.addEventListener(
-      'click',
-      () => {
-
-        const currentlyOpen =
-          coursesButton.getAttribute('aria-expanded') === 'true';
-
-        setCoursesState(!currentlyOpen);
-      }
+    button.setAttribute(
+      'aria-expanded',
+      String(open)
     );
+
+
+    button
+      .closest('.academic-block')
+      ?.classList.toggle(
+        'is-expanded',
+        open
+      );
+
+
+    updateAcademicButtonLabel(button);
+
   }
+
+
+
+  academicButtons.forEach(
+    (button) => {
+
+      setAcademicState(
+        button,
+        false
+      );
+
+
+      button.addEventListener(
+        'click',
+        () => {
+
+          const isOpen =
+            button.getAttribute(
+              'aria-expanded'
+            ) === 'true';
+
+
+          setAcademicState(
+            button,
+            !isOpen
+          );
+
+        }
+      );
+
+    }
+  );
+
 
 
   /* =======================================================
@@ -145,14 +225,18 @@ document.addEventListener('DOMContentLoaded', () => {
         ? 'en'
         : 'fr';
 
+
     const dict =
       translations[selectedLang] || {};
+
 
     document.documentElement.lang =
       selectedLang;
 
+
     document.documentElement.dataset.lang =
       selectedLang;
+
 
 
     /* Titre de la page */
@@ -163,20 +247,31 @@ document.addEventListener('DOMContentLoaded', () => {
         : 'Daniel Ndjodo Bessala — Assistant Lecturer & Researcher';
 
 
+
     /* Meta description */
 
     const metaDescription =
-      document.querySelector('meta[name="description"]');
+      document.querySelector(
+        'meta[name="description"]'
+      );
+
 
     if (metaDescription) {
 
       metaDescription.setAttribute(
+
         'content',
+
         selectedLang === 'fr'
+
           ? "Site académique bilingue de Daniel Ndjodo Bessala, enseignant-chercheur à l'ESSTIC, Université de Yaoundé II."
+
           : "Bilingual academic website of Daniel Ndjodo Bessala, Assistant Lecturer and Researcher at ESSTIC, University of Yaoundé II."
+
       );
+
     }
+
 
 
     /* Textes */
@@ -188,13 +283,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const key =
           element.dataset.i18n;
 
+
         const value =
           dict[key];
 
+
         if (value !== undefined) {
-          element.innerHTML = value;
+
+          element.innerHTML =
+            value;
+
         }
+
       });
+
 
 
     /* ALT */
@@ -206,16 +308,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const key =
           element.dataset.i18nAlt;
 
+
         const value =
           dict[key];
 
+
         if (value !== undefined) {
+
           element.setAttribute(
             'alt',
             value
           );
+
         }
+
       });
+
 
 
     /* ARIA */
@@ -227,16 +335,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const key =
           element.dataset.i18nAria;
 
+
         const value =
           dict[key];
 
+
         if (value !== undefined) {
+
           element.setAttribute(
             'aria-label',
             value
           );
+
         }
+
       });
+
 
 
     /* FR / EN */
@@ -248,6 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedLang === 'fr'
       );
 
+
     document
       .querySelector('.lang-en')
       ?.classList.toggle(
@@ -256,53 +371,79 @@ document.addEventListener('DOMContentLoaded', () => {
       );
 
 
+
     langToggle?.setAttribute(
+
       'aria-label',
+
       selectedLang === 'fr'
         ? 'Switch to English'
         : 'Passer en français'
+
     );
 
+
     langToggle?.setAttribute(
+
       'title',
+
       selectedLang === 'fr'
         ? 'English'
         : 'Français'
+
     );
+
 
 
     menuToggle?.setAttribute(
+
       'aria-label',
+
       selectedLang === 'fr'
         ? 'Ouvrir le menu'
         : 'Open menu'
+
     );
 
 
+
     themeToggle?.setAttribute(
+
       'aria-label',
+
       selectedLang === 'fr'
         ? 'Changer de thème'
         : 'Change theme'
+
     );
 
+
     themeToggle?.setAttribute(
+
       'title',
+
       selectedLang === 'fr'
         ? 'Changer de thème'
         : 'Change theme'
+
     );
+
 
 
     backToTop?.setAttribute(
+
       'aria-label',
+
       selectedLang === 'fr'
         ? 'Retour en haut'
         : 'Back to top'
+
     );
 
 
-    updateCoursesButtonLabel();
+
+    updateAcademicButtonLabels();
+
 
 
     try {
@@ -317,7 +458,9 @@ document.addEventListener('DOMContentLoaded', () => {
       /* Non bloquant */
 
     }
+
   }
+
 
 
   /* =======================================================
@@ -332,15 +475,21 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+
       const open =
-        navLinks.classList.toggle('open');
+        navLinks.classList.toggle(
+          'open'
+        );
+
 
       menuToggle.setAttribute(
         'aria-expanded',
         String(open)
       );
+
     }
   );
+
 
 
   navAnchors.forEach((link) => {
@@ -349,15 +498,21 @@ document.addEventListener('DOMContentLoaded', () => {
       'click',
       () => {
 
-        navLinks?.classList.remove('open');
+        navLinks?.classList.remove(
+          'open'
+        );
+
 
         menuToggle?.setAttribute(
           'aria-expanded',
           'false'
         );
+
       }
     );
+
   });
+
 
 
   /* =======================================================
@@ -366,16 +521,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let savedTheme = null;
 
+
   try {
 
     savedTheme =
-      localStorage.getItem('daniel-theme');
+      localStorage.getItem(
+        'daniel-theme'
+      );
 
   } catch (error) {
 
     savedTheme = null;
 
   }
+
 
 
   if (
@@ -385,7 +544,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.documentElement.dataset.theme =
       savedTheme;
+
   }
+
 
 
   themeToggle?.addEventListener(
@@ -395,13 +556,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentTheme =
         document.documentElement.dataset.theme;
 
+
       const nextTheme =
         currentTheme === 'dark'
           ? 'light'
           : 'dark';
 
+
       document.documentElement.dataset.theme =
         nextTheme;
+
 
       try {
 
@@ -415,8 +579,10 @@ document.addEventListener('DOMContentLoaded', () => {
         /* Non bloquant */
 
       }
+
     }
   );
+
 
 
   /* =======================================================
@@ -425,10 +591,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let savedLang = null;
 
+
   try {
 
     savedLang =
-      localStorage.getItem('daniel-lang');
+      localStorage.getItem(
+        'daniel-lang'
+      );
 
   } catch (error) {
 
@@ -437,22 +606,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+
   const browserLang =
+
     navigator.language
       ?.toLowerCase()
       .startsWith('fr')
+
         ? 'fr'
         : 'en';
 
 
+
   const initialLang =
+
     savedLang === 'fr' ||
     savedLang === 'en'
+
       ? savedLang
       : browserLang;
 
 
+
   setLanguage(initialLang);
+
 
 
   langToggle?.addEventListener(
@@ -464,9 +641,12 @@ document.addEventListener('DOMContentLoaded', () => {
           ? 'en'
           : 'fr';
 
+
       setLanguage(newLang);
+
     }
   );
+
 
 
   /* =======================================================
@@ -481,8 +661,11 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.scrollHeight -
       window.innerHeight;
 
+
     const ratio =
+
       scrollable > 0
+
         ? Math.min(
             100,
             Math.max(
@@ -490,25 +673,41 @@ document.addEventListener('DOMContentLoaded', () => {
               (window.scrollY / scrollable) * 100
             )
           )
+
         : 0;
 
+
+
     if (progress) {
+
       progress.style.width =
         `${ratio}%`;
+
     }
 
 
+
     backToTop?.classList.toggle(
+
       'visible',
+
       window.scrollY > 450
+
     );
 
 
+
     const sections = [
-      ...document.querySelectorAll('.section-anchor')
+      ...document.querySelectorAll(
+        '.section-anchor'
+      )
     ];
 
-    let current = 'about';
+
+    let current =
+      'about';
+
+
 
     sections.forEach(
       (section) => {
@@ -520,16 +719,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
           current =
             section.id;
+
         }
+
       }
     );
+
 
 
     navAnchors.forEach(
       (link) => {
 
         const href =
-          link.getAttribute('href');
+          link.getAttribute(
+            'href'
+          );
+
 
         if (
           !href ||
@@ -538,23 +743,31 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
+
         const target =
           href.slice(1);
 
+
         const active =
+
           target === current ||
+
           (
             target === 'publications' &&
             current === 'news'
           );
 
+
         link.classList.toggle(
           'active',
           active
         );
+
       }
     );
+
   }
+
 
 
   window.addEventListener(
@@ -563,7 +776,9 @@ document.addEventListener('DOMContentLoaded', () => {
     { passive: true }
   );
 
+
   onScroll();
+
 
 
   /* =======================================================
@@ -574,7 +789,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     yearElement.textContent =
       new Date().getFullYear();
+
   }
+
 
 
   /* =======================================================
@@ -587,10 +804,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       event.preventDefault();
 
+
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
+
 
       if (history.replaceState) {
 
@@ -600,9 +819,12 @@ document.addEventListener('DOMContentLoaded', () => {
           window.location.pathname +
           window.location.search
         );
+
       }
+
     }
   );
+
 
 
   /* =======================================================
@@ -611,21 +833,37 @@ document.addEventListener('DOMContentLoaded', () => {
   ======================================================= */
 
   const photoSlides = [
-    ...document.querySelectorAll('.photo-slide')
+    ...document.querySelectorAll(
+      '.photo-slide'
+    )
   ];
 
+
   const photoPrev =
-    document.querySelector('.photo-prev');
+    document.querySelector(
+      '.photo-prev'
+    );
+
 
   const photoNext =
-    document.querySelector('.photo-next');
+    document.querySelector(
+      '.photo-next'
+    );
+
 
   const photoDotsContainer =
-    document.querySelector('.photo-dots');
+    document.querySelector(
+      '.photo-dots'
+    );
 
 
-  let currentPhoto = 0;
-  let photoTimer = null;
+  let currentPhoto =
+    0;
+
+
+  let photoTimer =
+    null;
+
 
 
   /* -------------------------------------------------------
@@ -638,15 +876,20 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+
     if (index >= photoSlides.length) {
       index = 0;
     }
+
 
     if (index < 0) {
       index = photoSlides.length - 1;
     }
 
-    currentPhoto = index;
+
+    currentPhoto =
+      index;
+
 
 
     photoSlides.forEach(
@@ -656,13 +899,19 @@ document.addEventListener('DOMContentLoaded', () => {
           'active',
           slideIndex === currentPhoto
         );
+
       }
     );
 
 
+
     const dots = [
-      ...document.querySelectorAll('.photo-dot')
+      ...document.querySelectorAll(
+        '.photo-dot'
+      )
     ];
+
+
 
     dots.forEach(
       (dot, dotIndex) => {
@@ -672,15 +921,22 @@ document.addEventListener('DOMContentLoaded', () => {
           dotIndex === currentPhoto
         );
 
+
         dot.setAttribute(
+
           'aria-current',
+
           dotIndex === currentPhoto
             ? 'true'
             : 'false'
+
         );
+
       }
     );
+
   }
+
 
 
   /* -------------------------------------------------------
@@ -692,7 +948,9 @@ document.addEventListener('DOMContentLoaded', () => {
     showPhoto(
       currentPhoto + 1
     );
+
   }
+
 
 
   /* -------------------------------------------------------
@@ -704,7 +962,9 @@ document.addEventListener('DOMContentLoaded', () => {
     showPhoto(
       currentPhoto - 1
     );
+
   }
+
 
 
   /* -------------------------------------------------------
@@ -717,14 +977,20 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    clearInterval(photoTimer);
+
+    clearInterval(
+      photoTimer
+    );
+
 
     photoTimer =
       setInterval(
         nextPhoto,
         20000
       );
+
   }
+
 
 
   /* -------------------------------------------------------
@@ -733,14 +999,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function restartPhotoTimer() {
 
-    clearInterval(photoTimer);
+    clearInterval(
+      photoTimer
+    );
+
 
     startPhotoTimer();
+
   }
 
 
+
   /* -------------------------------------------------------
-     Création automatique des points de navigation
+     Création automatique des points
   ------------------------------------------------------- */
 
   if (
@@ -748,47 +1019,70 @@ document.addEventListener('DOMContentLoaded', () => {
     photoDotsContainer
   ) {
 
-    photoDotsContainer.innerHTML = '';
+    photoDotsContainer.innerHTML =
+      '';
+
 
     photoSlides.forEach(
       (_, index) => {
 
         const dot =
-          document.createElement('button');
+          document.createElement(
+            'button'
+          );
 
-        dot.type = 'button';
+
+        dot.type =
+          'button';
+
 
         dot.className =
           index === 0
             ? 'photo-dot active'
             : 'photo-dot';
 
+
         dot.setAttribute(
           'aria-label',
           `Afficher la photo ${index + 1}`
         );
 
+
         dot.setAttribute(
+
           'aria-current',
+
           index === 0
             ? 'true'
             : 'false'
+
         );
+
 
         dot.addEventListener(
           'click',
           () => {
 
-            showPhoto(index);
+            showPhoto(
+              index
+            );
+
 
             restartPhotoTimer();
+
           }
         );
 
-        photoDotsContainer.appendChild(dot);
+
+        photoDotsContainer.appendChild(
+          dot
+        );
+
       }
     );
+
   }
+
 
 
   /* -------------------------------------------------------
@@ -802,8 +1096,10 @@ document.addEventListener('DOMContentLoaded', () => {
       nextPhoto();
 
       restartPhotoTimer();
+
     }
   );
+
 
 
   /* -------------------------------------------------------
@@ -817,8 +1113,10 @@ document.addEventListener('DOMContentLoaded', () => {
       previousPhoto();
 
       restartPhotoTimer();
+
     }
   );
+
 
 
   /* -------------------------------------------------------
@@ -831,15 +1129,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (document.hidden) {
 
-        clearInterval(photoTimer);
+        clearInterval(
+          photoTimer
+        );
 
       } else {
 
         restartPhotoTimer();
 
       }
+
     }
   );
+
 
 
   /* -------------------------------------------------------
@@ -851,6 +1153,8 @@ document.addEventListener('DOMContentLoaded', () => {
     showPhoto(0);
 
     startPhotoTimer();
+
   }
+
 
 });
